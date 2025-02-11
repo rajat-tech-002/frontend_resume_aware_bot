@@ -19,23 +19,20 @@ for message in st.session_state.messages:
 query = st.text_input("Ask about my experience:", key="user_input")
 
 if st.button("Send") and query:
-    # Store user message
     st.session_state.messages.append({"role": "user", "content": query})
 
     try:
-        # Send request to FastAPI backend
         response = requests.post(API_URL, json={"query": query})
+        st.write(f"Response Status Code: {response.status_code}")  # Debug print
+        st.write(f"Response Text: {response.text}")  # Debug print
 
         if response.status_code == 200:
             bot_response = response.json().get("response", "I'm not sure how to answer that.")
         else:
-            bot_response = "Error: Could not get a response from the backend."
+            bot_response = f"Error {response.status_code}: {response.text}"
 
-    except requests.exceptions.RequestException:
-        bot_response = "Error: Unable to reach the backend. Check your connection."
+    except requests.exceptions.RequestException as e:
+        bot_response = f"Error: Unable to reach the backend. {e}"
 
-    # Store bot response
     st.session_state.messages.append({"role": "assistant", "content": bot_response})
-
-    # Refresh UI
     st.rerun()

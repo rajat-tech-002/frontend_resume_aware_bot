@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # FastAPI Backend URL on Hugging Face Spaces
-API_URL = "https://huggingface.co/spaces/rajattech02/resume_aware_bot"  # Replace with actual URL
+API_URL = "https://rajattech02-resume-aware-bot.hf.space/chat"  # Replace with actual URL
 
 st.title("Resume-aware Chatbot 🤖📄")
 

@@ -74,7 +74,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Add AI/ML Taglines at the Top
-st.markdown("### 📝 Built using cutting-edge AI and ML technologies!", unsafe_allow_html=True)
+# st.markdown("### 📝 Built using cutting-edge AI and ML technologies!", unsafe_allow_html=True)
 st.markdown("### 📝 Meet Resume Aware Bot! Your AI assistant that instantly responds to HR queries about your resume, even when you're unavailable.", unsafe_allow_html=True)
 
 # Title

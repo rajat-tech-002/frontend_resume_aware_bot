@@ -1,15 +1,9 @@
 import streamlit as st
 import requests
 from datetime import datetime
-import os
+
 # Define API URL
 API_URL = "https://rajattech02-resume-aware-bot.hf.space/chat"
-LOG_DIR = "logs"
-CHAT_LOG_FILE = os.path.join(LOG_DIR, "chat_history.txt")
-
-CHAT_LOG_JSON_FILE = os.path.join(LOG_DIR, "chat_history.json")
-
-os.makedirs("logs", exist_ok=True)  # Ensure logs folder exists
 
 # Set Page Config
 st.set_page_config(page_title="Resume Chatbot", page_icon="🤖", layout="centered")
@@ -21,7 +15,7 @@ st.markdown("""
         [data-testid="stAppViewContainer"] {
             background-color: var(--background);
         }
-        
+
         /* Define color variables */
         :root {
             --background: #F7F7F7;
@@ -42,7 +36,7 @@ st.markdown("""
         }
 
         /* Title Styling */
-        h1 {
+        h1, h2 {
             color: var(--text-color);
             text-align: center;
         }
@@ -79,22 +73,9 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
-# Function to save chat interactions to a text file
-def save_chat_to_file(user_message, bot_response):
-    """Saves chat history to a text file with timestamps."""
-    with open(CHAT_LOG_FILE, "a", encoding="utf-8") as f:
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        f.write(f"[{timestamp}] 👤 User: {user_message}\n")
-        f.write(f"[{timestamp}] 🤖 Bot: {bot_response}\n\n")
-import json
-
-def save_chat_to_json(user_message, bot_response):
-    data = {"timestamp": datetime.now().isoformat(), "user": user_message, "bot": bot_response}
-    with open(CHAT_LOG_JSON_FILE, "a", encoding="utf-8") as f:
-        json.dump(data, f)
-        f.write("\n")
-
+# Add AI/ML Taglines at the Top
+# st.markdown("### 📝 Built using cutting-edge AI and ML technologies!", unsafe_allow_html=True)
+st.markdown("### 📝 Meet Resume Aware Bot! Your AI assistant that instantly responds to HR queries about your resume, even when you're unavailable.", unsafe_allow_html=True)
 
 # Title
 st.title("💬 Resume-aware Chatbot by Rajat 🤖📄")
@@ -147,10 +128,6 @@ if query:
 
     except requests.exceptions.RequestException as e:
         bot_response = f"⚠️ Connection error: {str(e)}"
-
-    # Save chat interaction to file
-    save_chat_to_file(query, bot_response)
-    save_chat_to_json(query, bot_response)
 
     # Store bot response
     st.session_state.messages.append({

@@ -1,0 +1,7 @@
+# Git ignore file 
+
+# Ignore everything inside logs/
+logs/*
+
+# But do not ignore chat_history.txt
+!logs/chat_history.txt

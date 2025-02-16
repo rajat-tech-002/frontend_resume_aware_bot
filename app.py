@@ -82,6 +82,13 @@ def save_chat_to_file(user_message, bot_response):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         f.write(f"[{timestamp}] 👤 User: {user_message}\n")
         f.write(f"[{timestamp}] 🤖 Bot: {bot_response}\n\n")
+import json
+
+def save_chat_to_json(user_message, bot_response):
+    data = {"timestamp": datetime.now().isoformat(), "user": user_message, "bot": bot_response}
+    with open("chat_history.json", "a", encoding="utf-8") as f:
+        json.dump(data, f)
+        f.write("\n")
 
 
 # Title
@@ -138,6 +145,7 @@ if query:
 
     # Save chat interaction to file
     save_chat_to_file(query, bot_response)
+    save_chat_to_json(query, bot_response)
 
     # Store bot response
     st.session_state.messages.append({

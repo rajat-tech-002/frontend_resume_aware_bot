@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Define API URL
 API_URL = "https://rajattech02-resume-aware-bot.hf.space/chat"
-# API_URL = "http://localhost:8000/chat"
+
 # Set Page Config
 st.set_page_config(page_title="Resume Chatbot", page_icon="🤖", layout="centered")
 
@@ -36,7 +36,7 @@ st.markdown("""
         }
 
         /* Title Styling */
-        h1 {
+        h1, h2 {
             color: var(--text-color);
             text-align: center;
         }
@@ -70,10 +70,12 @@ st.markdown("""
         a:hover {
             text-decoration: underline;
         }
-
     </style>
 """, unsafe_allow_html=True)
 
+# Add AI/ML Taglines at the Top
+st.markdown("### 📝 Built using cutting-edge AI and ML technologies!", unsafe_allow_html=True)
+st.markdown("### 📝 Meet Resume Aware Bot! Your AI assistant that instantly responds to HR queries about your resume, even when you're unavailable.", unsafe_allow_html=True)
 
 # Title
 st.title("💬 Resume-aware Chatbot by Rajat 🤖📄")
@@ -102,9 +104,6 @@ for message in st.session_state.messages:
         col1, col2 = st.columns([5, 1])  # Left-align bot messages
         with col1:
             st.markdown(f"<b>{role} ({time_str}):</b><br>{message['content']}", unsafe_allow_html=True)
-
-
-
 
 # User input (Automatically submits on Enter)
 query = st.chat_input("Ask about Rajat's experience:")

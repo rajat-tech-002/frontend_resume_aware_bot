@@ -4,6 +4,7 @@ from datetime import datetime
 
 # Define API URL
 API_URL = "https://rajattech02-resume-aware-bot.hf.space/chat"
+CHAT_LOG_FILE = "chat_history.txt"  # Define chat log file
 
 # Set Page Config
 st.set_page_config(page_title="Resume Chatbot", page_icon="🤖", layout="centered")
@@ -15,7 +16,7 @@ st.markdown("""
         [data-testid="stAppViewContainer"] {
             background-color: var(--background);
         }
-
+        
         /* Define color variables */
         :root {
             --background: #F7F7F7;
@@ -36,7 +37,7 @@ st.markdown("""
         }
 
         /* Title Styling */
-        h1, h2 {
+        h1 {
             color: var(--text-color);
             text-align: center;
         }
@@ -73,9 +74,15 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Add AI/ML Taglines at the Top
-# st.markdown("### 📝 Built using cutting-edge AI and ML technologies!", unsafe_allow_html=True)
-st.markdown("<p class='small-text'>📝 Meet Resume Aware Bot! Your AI assistant that instantly responds to HR queries about your resume, even when you're unavailable.</p>", unsafe_allow_html=True)
+
+# Function to save chat interactions to a text file
+def save_chat_to_file(user_message, bot_response):
+    """Saves chat history to a text file with timestamps."""
+    with open(CHAT_LOG_FILE, "a", encoding="utf-8") as f:
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        f.write(f"[{timestamp}] 👤 User: {user_message}\n")
+        f.write(f"[{timestamp}] 🤖 Bot: {bot_response}\n\n")
+
 
 # Title
 st.title("💬 Resume-aware Chatbot by Rajat 🤖📄")
@@ -128,6 +135,9 @@ if query:
 
     except requests.exceptions.RequestException as e:
         bot_response = f"⚠️ Connection error: {str(e)}"
+
+    # Save chat interaction to file
+    save_chat_to_file(query, bot_response)
 
     # Store bot response
     st.session_state.messages.append({

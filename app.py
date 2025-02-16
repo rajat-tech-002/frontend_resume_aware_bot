@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 from datetime import datetime
-
+import os
 # Define API URL
 API_URL = "https://rajattech02-resume-aware-bot.hf.space/chat"
 CHAT_LOG_FILE = "logs/chat_history.txt"  # Define chat log file

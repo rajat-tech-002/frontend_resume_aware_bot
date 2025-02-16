@@ -4,9 +4,11 @@ from datetime import datetime
 import os
 # Define API URL
 API_URL = "https://rajattech02-resume-aware-bot.hf.space/chat"
-CHAT_LOG_FILE = "logs/chat_history.txt"  # Define chat log file
+LOG_DIR = "logs"
+CHAT_LOG_FILE = os.path.join(LOG_DIR, "chat_history.txt")
 
-chat_file = "logs/chat_history.txt"
+CHAT_LOG_JSON_FILE = os.path.join(LOG_DIR, "chat_history.json")
+
 os.makedirs("logs", exist_ok=True)  # Ensure logs folder exists
 
 # Set Page Config
@@ -89,7 +91,7 @@ import json
 
 def save_chat_to_json(user_message, bot_response):
     data = {"timestamp": datetime.now().isoformat(), "user": user_message, "bot": bot_response}
-    with open("logs/chat_history.json", "a", encoding="utf-8") as f:
+    with open(CHAT_LOG_JSON_FILE, "a", encoding="utf-8") as f:
         json.dump(data, f)
         f.write("\n")
 
